@@ -33,7 +33,9 @@ def process_song_data(spark, input_data, output_data):
     """
     
     # get filepath to song data file
-    song_data = os.path.join(input_data, 'song_data/A/A/A/*.json')
+    song_data = os.path.join(input_data, 'song_data')
+        #Use the below if you just want to test on smaller dataset
+        #song_data = os.path.join(input_data, 'song_data/A/A/A/*.json')
     
     # read song data file
     df = spark.read.json(song_data)
@@ -63,7 +65,9 @@ def process_log_data(spark, input_data, output_data):
     get_datetime = udf(lambda x: datetime.fromtimestamp(int(x)/1000.0),T.DateType())
         
     # get filepath to log data file
-    log_data = os.path.join(input_data, 'log_data/2018/11/*.json')
+    log_data = os.path.join(input_data, 'log_data')
+        #Use the below if you just want to test on smaller dataset
+        #log_data = os.path.join(input_data, 'log_data/2018/11/*.json')
 
     # read log data file
     df = spark.read.json(log_data)
@@ -100,7 +104,9 @@ def process_log_data(spark, input_data, output_data):
     time_table.write.partitionBy("year", "month").parquet(time_output, mode="overwrite")
 
     # read in song data to use for songplays table
-    song_data = os.path.join(input_data, 'song_data/A/A/A/*.json')
+    song_data = os.path.join(input_data, 'song_data')    
+        #Use the below if you just want to test on smaller dataset
+        #song_data = os.path.join(input_data, 'song_data/A/A/A/*.json')
     song_df = spark.read.json(song_data)
 
     # extract columns from joined song and log datasets to create songplays table 
