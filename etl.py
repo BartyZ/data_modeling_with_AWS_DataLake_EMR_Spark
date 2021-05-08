@@ -33,7 +33,7 @@ def process_song_data(spark, input_data, output_data):
     """
     
     # get filepath to song data file
-    song_data = os.path.join(input_data, 'song_data')
+    song_data = os.path.join(input_data, 'song_data/*/*/*/*.json')
         #Use the below if you just want to test on smaller dataset
         #song_data = os.path.join(input_data, 'song_data/A/A/A/*.json')
     
@@ -104,7 +104,7 @@ def process_log_data(spark, input_data, output_data):
     time_table.write.partitionBy("year", "month").parquet(time_output, mode="overwrite")
 
     # read in song data to use for songplays table
-    song_data = os.path.join(input_data, 'song_data')    
+    song_data = os.path.join(input_data, 'song_data/*/*/*/*.json')    
         #Use the below if you just want to test on smaller dataset
         #song_data = os.path.join(input_data, 'song_data/A/A/A/*.json')
     song_df = spark.read.json(song_data)
